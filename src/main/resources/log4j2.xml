@@ -12,7 +12,7 @@
     <Appenders>
 
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout charset="gbk" pattern="${pattern}"/>
+            <PatternLayout charset="utf-8" pattern="${pattern}"/>
         </Console>
 
         <RollingRandomAccessFile name="fileLogger"
