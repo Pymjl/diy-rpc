@@ -12,7 +12,7 @@
     <Appenders>
 
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="${pattern}"/>
+            <PatternLayout charset="gbk" pattern="${pattern}"/>
         </Console>
 
         <RollingRandomAccessFile name="fileLogger"
@@ -39,7 +39,7 @@
                           level="debug"/>
         </Logger>
 
-        <Root level="info" additivity="false">
+        <Root level="debug" additivity="false">
             <appender-ref ref="console"/>
         </Root>
     </Loggers>
