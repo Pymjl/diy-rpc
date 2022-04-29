@@ -1,0 +1,16 @@
+*.class
+*.jar
+*.original
+*.lst
+*.log
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### target directory ###
+target/
+
+logs/
