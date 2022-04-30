@@ -13,6 +13,7 @@ import java.lang.reflect.Field;
  * @date 2022/4/29 23:49
  **/
 @Log4j2
+@SuppressWarnings("all")
 public class AnnotationsTest {
     public static void main(String[] args) throws ClassNotFoundException, NoSuchFieldException {
         Class<?> clazz = Class.forName("cuit.epoch.pymjl.annotations.entity.Student");
@@ -24,7 +25,7 @@ public class AnnotationsTest {
         }
         //获取注解的属性值
         log.info("获取类的属性值");
-        TableAnnotation tableAnnotation = (TableAnnotation) clazz.getAnnotation(TableAnnotation.class);
+        TableAnnotation tableAnnotation = clazz.getAnnotation(TableAnnotation.class);
         System.out.println("value="+tableAnnotation.value());
         //获取属性的注解
         //先获取对应的属性
@@ -33,6 +34,5 @@ public class AnnotationsTest {
         System.out.println(nameAnnotation.value());
         System.out.println(nameAnnotation.length());
         System.out.println(nameAnnotation.type());
-
     }
 }
