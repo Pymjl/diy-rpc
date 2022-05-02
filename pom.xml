@@ -21,11 +21,11 @@
         <kryo.shaded.version>4.0.0</kryo.shaded.version>
         <commons.codec.version>1.10</commons.codec.version>
         <junit.jupiter.api.version>5.8.2</junit.jupiter.api.version>
-        <log4j.version>2.6.2</log4j.version>
         <lombok.version>1.16.16</lombok.version>
         <cglib.version>3.3.0</cglib.version>
         <zookeeper.version>3.6.2</zookeeper.version>
         <logbac.version>1.2.3</logbac.version>
+        <curator.version>4.2.0</curator.version>
     </properties>
 
     <dependencyManagement>
@@ -53,17 +53,6 @@
                 <version>${junit.jupiter.api.version}</version>
                 <scope>test</scope>
             </dependency>
-            <!-- 添加日志支持Log4j2 -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
             <!-- 代码简化 -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -87,6 +76,17 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logbac.version}</version>
+            </dependency>
+            <!--curator操作zookeeper-->
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>${curator.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>${curator.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
