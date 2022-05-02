@@ -17,5 +17,9 @@ public class Context {
     void test1() {
         log.info("wewew");
     }
+    @Test
+    void test2(){
+        System.out.println(System.currentTimeMillis());
+    }
 
 }

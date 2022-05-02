@@ -1,11 +1,10 @@
 package cuit.epoch.pymjl.nettydemo.codec;
 
-import cuit.epoch.pymjl.util.KryoUtil;
+import cuit.epoch.pymjl.utils.KryoUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageDecoder;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

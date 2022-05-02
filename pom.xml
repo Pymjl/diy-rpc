@@ -11,6 +11,7 @@
     <modules>
         <module>diy-rpc-learn-demo</module>
         <module>diy-rpc-core</module>
+        <module>diy-rpc-commons</module>
     </modules>
 
     <properties>
