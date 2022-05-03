@@ -1,7 +1,7 @@
 package cuit.epoch.pymjl.loadbalance;
 
 import cuit.epoch.pymjl.remote.entity.RpcRequest;
-import cuit.epoch.pymjl.spi.SPI;
+import cuit.epoch.pymjl.spi.MySpi;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0
  * @date 2022/5/3 11:32
  **/
-@SPI
+@MySpi
 public interface LoadBalance {
     /**
      * 通过负载均衡的策略发现服务
