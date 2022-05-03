@@ -31,6 +31,7 @@ public final class PropertiesFileUtil {
             properties = new Properties();
             properties.load(inputStreamReader);
         } catch (IOException e) {
+            e.printStackTrace();
             log.error("occur exception when read properties file [{}]", fileName);
         }
         return properties;

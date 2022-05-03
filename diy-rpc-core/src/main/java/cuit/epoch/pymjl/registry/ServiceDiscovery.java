@@ -1,5 +1,7 @@
 package cuit.epoch.pymjl.registry;
 
+import cuit.epoch.pymjl.remote.entity.RpcRequest;
+
 import java.net.InetSocketAddress;
 
 /**
@@ -11,8 +13,8 @@ public interface ServiceDiscovery {
     /**
      * 服务发现，获取远程服务地址
      *
-     * @param rpcServiceName 完整的rpc服务名称
+     * @param rpcRequest 请求对象
      * @return {@code InetSocketAddress} 远程服务地址
      */
-    InetSocketAddress findService(String rpcServiceName);
+    InetSocketAddress findService(RpcRequest rpcRequest);
 }

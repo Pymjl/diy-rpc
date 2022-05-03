@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Pymjl
@@ -42,6 +44,17 @@ public class Context {
     void testList() {
         List<String> list = new ArrayList<>();
         System.out.println(list.isEmpty());
+    }
+
+    @Test
+    void testMap() {
+        Map<String, String> map = new HashMap<>();
+        swap(map);
+        map.forEach((k, v) -> System.out.println(k + v));
+    }
+
+    private void swap(Map<String, String> map) {
+        map.put("Hello", "world");
     }
 
 }

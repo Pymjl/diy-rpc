@@ -1,5 +1,13 @@
 package cuit.epoch.pymjl.spi;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1.0
  * @date 2022/5/3 15:12
  **/
+@Slf4j
 public class ExtensionLoader<T> {
     /**
      * SPI配置文件根目录
@@ -24,7 +33,7 @@ public class ExtensionLoader<T> {
     private static final Map<Class<?>, ExtensionLoader<?>> EXTENSION_LOADER_MAP = new ConcurrentHashMap<>();
 
     /**
-     *
+     * 目标扩展类的字节码和实例对象
      */
     private static final Map<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<>();
 
@@ -33,8 +42,14 @@ public class ExtensionLoader<T> {
      */
     private final Class<?> type;
 
+    /**
+     * 本地缓存
+     */
     private final Map<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
 
+    /**
+     * 扩展类实例对象，key为配置文件中的key，value为实例对象的全限定名称
+     */
     private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
 
     public ExtensionLoader(Class<?> type) {
@@ -101,9 +116,29 @@ public class ExtensionLoader<T> {
         return (T) instance;
     }
 
-    //TODO 完善创建扩展类实例的方法
+    /**
+     * 通过扩展类字节码创建实例对象
+     *
+     * @param name 名字
+     * @return {@code T}
+     */
     private T createExtension(String name) {
-        return null;
+        //从文件中加载所有类型为 T 的扩展类并按名称获取特定的扩展类
+        Class<?> clazz = getExtensionClasses().get(name);
+        if (clazz == null) {
+            throw new RuntimeException("No such extension of name " + name);
+        }
+        T instance = (T) EXTENSION_INSTANCES.get(clazz);
+        if (instance == null) {
+            try {
+                EXTENSION_INSTANCES.putIfAbsent(clazz, clazz.newInstance());
+                instance = (T) EXTENSION_INSTANCES.get(clazz);
+            } catch (InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
+                log.error(e.getMessage());
+            }
+        }
+        return instance;
     }
 
     /**
@@ -132,11 +167,65 @@ public class ExtensionLoader<T> {
     /**
      * 从配置目录中加载所有扩展类
      *
-     * @param extensionsClasses 扩展类
+     * @param extensionsClasses 扩展类的K,V键值对
      */
     private void loadDirectory(Map<String, Class<?>> extensionsClasses) {
         String fileName = ExtensionLoader.SERVICE_DIRECTORY + type.getName();
-        //TODO 后续的代码
+        try {
+            //获取配置文件的资源路径
+            Enumeration<URL> urls;
+            ClassLoader classLoader = ExtensionLoader.class.getClassLoader();
+            urls = classLoader.getResources(fileName);
+            if (urls != null) {
+                while (urls.hasMoreElements()) {
+                    URL resourceUrl = urls.nextElement();
+                    loadResource(extensionsClasses, classLoader, resourceUrl);
+                }
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    /**
+     * 通过Url加载资源
+     *
+     * @param extensionClasses 扩展类，key为配置文件中的key，Value为实现类的全限定名称
+     * @param classLoader      类加载器
+     * @param resourceUrl      资源url
+     */
+    private void loadResource(Map<String, Class<?>> extensionClasses, ClassLoader classLoader, URL resourceUrl) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resourceUrl.openStream(), StandardCharsets.UTF_8))) {
+            String line;
+            //读取文件中的每一行数据
+            while ((line = reader.readLine()) != null) {
+                //先排除配置文件中的注释
+                final int noteIndex = line.indexOf('#');
+                //我们应该忽略掉注释后的内容
+                if (noteIndex > 0) {
+                    line = line.substring(0, noteIndex);
+                }
+                line = line.trim();
+                if (line.length() > 0) {
+                    try {
+                        final int keyIndex = line.indexOf('=');
+                        String key = line.substring(0, keyIndex).trim();
+                        String value = line.substring(keyIndex + 1).trim();
+                        if (key.length() > 0 && value.length() > 0) {
+                            Class<?> clazz = classLoader.loadClass(value);
+                            extensionClasses.put(key, clazz);
+                        }
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                        log.error(e.getMessage());
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
 
     }
 
