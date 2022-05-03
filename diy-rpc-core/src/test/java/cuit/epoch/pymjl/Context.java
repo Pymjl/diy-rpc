@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 import java.net.InetSocketAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Pymjl
@@ -34,6 +36,12 @@ public class Context {
         InetSocketAddress address = new InetSocketAddress("127.0.0.1", 8080);
         zkServiceRegistry.registryService("cuit.epoch.service.HelloService#HelloServiceImpl#1.0",
                 address);
+    }
+
+    @Test
+    void testList() {
+        List<String> list = new ArrayList<>();
+        System.out.println(list.isEmpty());
     }
 
 }
