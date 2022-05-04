@@ -21,7 +21,7 @@ public class RpcRequest implements Serializable {
     /**
      * 请求id
      */
-    private Long requestId;
+    private String requestId;
 
     /**
      * 调用的服务版本，兼容服务端的升级

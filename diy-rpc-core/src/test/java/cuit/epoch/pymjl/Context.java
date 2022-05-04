@@ -6,7 +6,9 @@ import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +24,9 @@ public class Context {
 
 
     @Test
-    void test1() {
-        log.info("wewew");
+    void test1() throws UnknownHostException {
+        String host = InetAddress.getLocalHost().getHostAddress();
+        System.out.println(host);
     }
 
     @Test
