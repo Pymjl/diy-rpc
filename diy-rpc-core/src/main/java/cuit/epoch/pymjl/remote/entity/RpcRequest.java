@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 
 import java.io.Serializable;
 
@@ -42,7 +41,7 @@ public class RpcRequest implements Serializable {
     /**
      * 用于处理一个接口有多个实现类的情况
      */
-    private String targetImpl;
+    private String group;
 
     /**
      * 调用方法传入的参数
@@ -54,7 +53,7 @@ public class RpcRequest implements Serializable {
      */
     private Class<?>[] paramTypes;
 
-    public String getServiceName() {
-        return this.getInterfaceName() + this.getTargetImpl() + this.getVersion();
+    public String getRpcServiceName() {
+        return this.getInterfaceName() + "#" + this.getGroup() + "#" + this.getVersion();
     }
 }

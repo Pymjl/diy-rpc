@@ -29,7 +29,7 @@ public class ZkServiceDiscoveryImpl implements ServiceDiscovery {
     @Override
     public InetSocketAddress findService(RpcRequest rpcRequest) {
         //获取服务名称
-        String serviceName = rpcRequest.getServiceName();
+        String serviceName = rpcRequest.getRpcServiceName();
         //获取Curator客户端
         CuratorFramework zkClient = CuratorUtils.getZkClient();
         //获取服务的所有子节点

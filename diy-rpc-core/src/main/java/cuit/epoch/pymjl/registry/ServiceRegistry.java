@@ -1,5 +1,7 @@
 package cuit.epoch.pymjl.registry;
 
+import cuit.epoch.pymjl.spi.MySpi;
+
 import java.net.InetSocketAddress;
 
 /**
@@ -7,6 +9,7 @@ import java.net.InetSocketAddress;
  * @version 1.0
  * @date 2022/5/2 19:41
  **/
+@MySpi
 public interface ServiceRegistry {
     /**
      * 注册服务到注册中心

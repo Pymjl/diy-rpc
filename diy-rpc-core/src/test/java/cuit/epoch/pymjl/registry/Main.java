@@ -27,8 +27,8 @@ public class Main {
         RpcRequest rpcRequest = new RpcRequest();
         rpcRequest.setInterfaceName("HelloService");
         rpcRequest.setVersion("v1");
-        rpcRequest.setTargetImpl("HelloServiceImpl");
-        String serviceName = rpcRequest.getServiceName();
+        rpcRequest.setGroup("HelloServiceImpl");
+        String serviceName = rpcRequest.getRpcServiceName();
         System.out.println("ServiceName: " + serviceName);
 
         InetSocketAddress address1 = new InetSocketAddress("127.0.0.1", 8080);

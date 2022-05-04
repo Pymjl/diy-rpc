@@ -1,6 +1,7 @@
 package cuit.epoch.pymjl.registry;
 
 import cuit.epoch.pymjl.remote.entity.RpcRequest;
+import cuit.epoch.pymjl.spi.MySpi;
 
 import java.net.InetSocketAddress;
 
@@ -9,6 +10,7 @@ import java.net.InetSocketAddress;
  * @version 1.0
  * @date 2022/5/2 19:44
  **/
+@MySpi
 public interface ServiceDiscovery {
     /**
      * 服务发现，获取远程服务地址
