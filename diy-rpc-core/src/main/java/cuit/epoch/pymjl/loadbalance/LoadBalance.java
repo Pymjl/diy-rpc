@@ -1,7 +1,7 @@
 package cuit.epoch.pymjl.loadbalance;
 
 import cuit.epoch.pymjl.remote.entity.RpcRequest;
-import cuit.epoch.pymjl.spi.MySpi;
+import cuit.epoch.pymjl.annotations.MySpi;
 
 import java.util.List;
 

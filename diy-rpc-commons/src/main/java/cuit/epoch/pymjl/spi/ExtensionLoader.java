@@ -1,5 +1,6 @@
 package cuit.epoch.pymjl.spi;
 
+import cuit.epoch.pymjl.annotations.MySpi;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;

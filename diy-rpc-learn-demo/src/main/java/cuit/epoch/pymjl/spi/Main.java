@@ -13,11 +13,13 @@ import java.util.ServiceLoader;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        log.info("这是Java原生的SPI机制");
-        ServiceLoader<Animal> serviceLoader = ServiceLoader.load(Animal.class);
-        for (Animal animal : serviceLoader) {
-            animal.call();
-        }
+        log.info("这是Dubbo的SPI机制");
+        Animal cat = ExtensionLoader.getExtensionLoader(Animal.class)
+                .getExtension("cat");
+        Animal dog = ExtensionLoader.getExtensionLoader(Animal.class)
+                .getExtension("dog");
+        cat.call();
+        dog.call();
 
     }
 }

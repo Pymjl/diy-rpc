@@ -12,6 +12,7 @@ public class SocketTest {
     @Test
     void testSocket() {
         SocketServer server = new SocketServer();
+        server.start();
 
     }
 }

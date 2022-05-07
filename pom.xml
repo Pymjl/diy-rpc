@@ -27,6 +27,7 @@
         <zookeeper.version>3.6.2</zookeeper.version>
         <logbac.version>1.2.3</logbac.version>
         <curator.version>4.2.0</curator.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
     </properties>
 
     <dependencyManagement>
@@ -88,6 +89,12 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-recipes</artifactId>
                 <version>${curator.version}</version>
+            </dependency>
+            <!--spring-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

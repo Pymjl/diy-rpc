@@ -1,4 +1,4 @@
-package cuit.epoch.pymjl.spi;
+package cuit.epoch.pymjl.annotations;
 
 import java.lang.annotation.*;
 
