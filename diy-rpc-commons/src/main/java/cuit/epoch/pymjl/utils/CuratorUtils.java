@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * TODO 这里可以通过改变注册节点的方式，选择临时节点还是持久节点
  * @author Pymjl
  * @version 1.0
  * @date 2022/5/2 20:10
