@@ -3,13 +3,13 @@ package cuit.epoch.pymjl.service;
 /**
  * @author Pymjl
  * @version 1.0
- * @date 2022/5/4 12:16
+ * @date 2022/5/11 22:33
  **/
-public interface HelloService {
+public interface TestService {
     /**
-     * 说“你好”
+     * 测试
      *
      * @param msg 信息
      */
-    void sayHello(String msg);
+    String test(String msg);
 }
