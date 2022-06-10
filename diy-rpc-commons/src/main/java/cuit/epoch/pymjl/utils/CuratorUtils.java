@@ -22,6 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * TODO 这里可以通过改变注册节点的方式，选择临时节点还是持久节点
+ *
  * @author Pymjl
  * @version 1.0
  * @date 2022/5/2 20:10
@@ -83,9 +84,10 @@ public final class CuratorUtils {
                 /* 如果不存在则创建节点
                  * eg: /my-rpc/github.javaguide.HelloService/127.0.0.1:9999
                  * creatingParentsIfNeeded当父节点不存在是递归创建父节点
-                 * CreateMode.PERSISTENT 节点类型，持久节点
+                 * CreateMode.EPHEMERAL 节点类型，临时节点
+                 * FIXME 这里仅支持临时节点的模式，后续可将其优化为通过配置文件的方式设置服务为临时节点还是持久节点
                  */
-                zkClient.create().creatingParentsIfNeeded().withMode(CreateMode.PERSISTENT).forPath(path);
+                zkClient.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(path);
                 log.info("The node was created successfully. The node is:[{}]", path);
             }
             //将已注册节点加入本地缓存
@@ -175,18 +177,22 @@ public final class CuratorUtils {
     }
 
     /**
-     * Registers to listen for changes to the specified node
+     * 注册监听指定节点的变化
      *
      * @param rpcServiceName rpc service name eg:github.javaguide.HelloServicetest2version
      */
     private static void registerWatcher(String rpcServiceName, CuratorFramework zkClient) throws Exception {
+        //拼接获取完整的zk节点路径
         String servicePath = ZK_REGISTER_ROOT_PATH + "/" + rpcServiceName;
         PathChildrenCache pathChildrenCache = new PathChildrenCache(zkClient, servicePath, true);
         PathChildrenCacheListener pathChildrenCacheListener = (curatorFramework, pathChildrenCacheEvent) -> {
+            //重新查询该服务下的zk节点
             List<String> serviceAddresses = curatorFramework.getChildren().forPath(servicePath);
+            //将查询到的结果放回本地缓存
             SERVICE_ADDRESS_MAP.put(rpcServiceName, serviceAddresses);
         };
         pathChildrenCache.getListenable().addListener(pathChildrenCacheListener);
+        //开始监听
         pathChildrenCache.start();
     }
 

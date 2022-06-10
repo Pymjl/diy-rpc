@@ -13,8 +13,8 @@
         <module>diy-rpc-core</module>
         <module>diy-rpc-commons</module>
         <module>diy-rpc-public</module>
-        <module>diy-rpc-server-example</module>
-        <module>diy-rpc-client-example</module>
+        <module>diy-rpc-example-server</module>
+        <module>diy-rpc-example-client</module>
     </modules>
 
     <properties>
