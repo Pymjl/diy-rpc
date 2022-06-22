@@ -22,7 +22,14 @@ import java.util.concurrent.ExecutorService;
  **/
 @Slf4j
 public class SocketServer {
+    /**
+     * 线程池
+     */
     private final ExecutorService threadPool;
+
+    /**
+     * 服务提供者，提供向注册中心注册服务的接口
+     */
     private final ServiceProvider serviceProvider;
 
     public SocketServer() {
@@ -32,7 +39,7 @@ public class SocketServer {
     }
 
     /**
-     * 注册服务
+     * 向注册中心注册服务
      *
      * @param rpcServiceConfig rpc服务配置
      */

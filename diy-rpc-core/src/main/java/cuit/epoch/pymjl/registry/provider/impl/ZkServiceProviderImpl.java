@@ -23,7 +23,14 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class ZkServiceProviderImpl implements ServiceProvider {
     private final ServiceRegistry serviceRegistry;
+    /**
+     * 缓存映射，key为服务名，value为注册服务的对象示例
+     * 客户端发起调用的时候要通过服务名从serviceMap里面获取对应的服务实例
+     */
     private final Map<String, Object> serviceMap;
+    /**
+     * 已注册服务名的缓存
+     */
     private final Set<String> registeredServices;
 
     public ZkServiceProviderImpl() {
@@ -41,12 +48,19 @@ public class ZkServiceProviderImpl implements ServiceProvider {
             log.warn("[{}]服务已经被添加", serviceName);
         } else {
             registeredServices.add(serviceName);
+            //将服务名对应的实例化对象缓存进map
             serviceMap.put(serviceName, rpcServiceConfig.getService());
             log.info("Add service: {} and interfaces:{}", serviceName,
                     rpcServiceConfig.getService().getClass().getInterfaces());
         }
     }
 
+    /**
+     * 通过服务名获取对应服务的实例化对象
+     *
+     * @param rpcServiceName rpc服务名称
+     * @return {@code Object}
+     */
     @Override
     public Object getService(String rpcServiceName) {
         Object service = serviceMap.get(rpcServiceName);

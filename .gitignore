@@ -11,6 +11,6 @@
 *.ipr
 
 ### target directory ###
-target/
+*/target
 
 logs/

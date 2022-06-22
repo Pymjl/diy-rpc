@@ -1,12 +1,10 @@
 package cuit.epoch.pymjl;
 
-import cuit.epoch.pymjl.annotations.RpcScan;
 import cuit.epoch.pymjl.config.RpcServiceConfig;
 import cuit.epoch.pymjl.proxy.RpcClientProxy;
 import cuit.epoch.pymjl.remote.transport.RpcRequestTransport;
 import cuit.epoch.pymjl.remote.transport.socket.SocketClient;
 import cuit.epoch.pymjl.service.HelloService;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * @author Pymjl
