@@ -33,7 +33,7 @@ public class NettyClient {
 
     public void sendData() throws Exception {
         Random random = new Random(System.currentTimeMillis());
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 10; i++) {
             if (channel != null && channel.isActive()) {
                 String content = "client msg " + i;
                 ByteBuf buf = channel.alloc().buffer(5 + content.getBytes().length);

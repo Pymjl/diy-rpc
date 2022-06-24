@@ -11,6 +11,7 @@ import io.netty.channel.ChannelHandlerContext;
  **/
 public class ClientHandler extends AbstractCustomHeartbeatHandler {
     private NettyClient client;
+    private int cnt = 0;
 
     public ClientHandler(NettyClient client) {
         super("client");
@@ -28,6 +29,10 @@ public class ClientHandler extends AbstractCustomHeartbeatHandler {
 
     @Override
     protected void handleAllIdle(ChannelHandlerContext ctx) {
+        cnt++;
+        if (cnt > 5) {
+            return;
+        }
         super.handleAllIdle(ctx);
         sendPingMsg(ctx);
     }

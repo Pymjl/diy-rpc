@@ -2,6 +2,8 @@ package cuit.epoch.pymjl;
 
 import cuit.epoch.pymjl.registry.zookeeper.ZkServiceRegistryImpl;
 import cuit.epoch.pymjl.utils.CuratorUtils;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,4 +63,12 @@ public class Context {
         map.put("Hello", "world");
     }
 
+    @Test
+    void testByteBuf() {
+        ByteBuf buf = Unpooled.buffer(1024);
+        buf.writeBytes("hello".getBytes(StandardCharsets.UTF_8));
+        System.out.println(buf.writerIndex());
+        buf.writerIndex(12);
+        System.out.println(buf.writerIndex());
+    }
 }

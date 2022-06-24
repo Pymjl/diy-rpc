@@ -1,5 +1,6 @@
 package cuit.epoch.pymjl.config;
 
+import cuit.epoch.pymjl.remote.transport.netty.server.NettyServer;
 import cuit.epoch.pymjl.utils.CuratorUtils;
 import cuit.epoch.pymjl.utils.concurrent.threadpool.ThreadPoolFactoryUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,9 @@ public class CustomShutdownHook {
         log.info("清理服务端节点下的所有子节点");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                //TODO 这里的端口号暂时写死为8080
-                InetSocketAddress inetSocketAddress = new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), 8080);
+                //FIXME 这里的端口号暂时写死为8080
+                InetSocketAddress inetSocketAddress =
+                        new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), NettyServer.PORT);
                 CuratorUtils.clearRegistry(CuratorUtils.getZkClient(), inetSocketAddress);
             } catch (UnknownHostException ignored) {
             }
