@@ -60,9 +60,9 @@ public class NettyServer {
         String host = InetAddress.getLocalHost().getHostAddress();
         //bossGroup用于处理客户端的连接时间，线程数1
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-        //workGroup处理业务逻辑
+        //workGroup处理网络读写
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        //独立的线程池用于处理耗时任务，用于将IO线程和业务处理逻辑线程分开
+        //独立的线程池用于处理业务逻辑，用于将IO线程和业务处理逻辑线程分开
         DefaultEventExecutorGroup serviceHandlerGroup = new DefaultEventExecutorGroup(
                 RuntimeUtil.cpus() * 2,
                 ThreadPoolFactoryUtil.createThreadFactory("service-handler-group", false)
@@ -84,11 +84,11 @@ public class NettyServer {
                         protected void initChannel(SocketChannel ch) {
                             // 30 秒之内没有收到客户端请求的话就关闭连接
                             ChannelPipeline p = ch.pipeline();
-                            //Netty自带的心跳处理器，应用层自定义
+                            //Netty自带的心跳处理器，应用层自定义，监听读超时
                             p.addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
                             p.addLast(new MessageEncoder());
                             p.addLast(new MessageDecoder());
-                            p.addLast(serviceHandlerGroup, new NettyRpcServerHandler());
+                            p.addLast(serviceHandlerGroup, new NettyServerHandler());
                         }
                     });
 

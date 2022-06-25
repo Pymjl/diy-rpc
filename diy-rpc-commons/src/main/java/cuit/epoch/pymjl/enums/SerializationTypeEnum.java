@@ -12,8 +12,17 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 public enum SerializationTypeEnum {
-    KYRO((byte) 0x01, "kryo"),
+    /**
+     * kryo
+     */
+    KRYO((byte) 0x01, "kryo"),
+    /**
+     * protostuff
+     */
     PROTOSTUFF((byte) 0x02, "protostuff"),
+    /**
+     * hessian
+     */
     HESSIAN((byte) 0X03, "hessian");
 
     private final byte code;

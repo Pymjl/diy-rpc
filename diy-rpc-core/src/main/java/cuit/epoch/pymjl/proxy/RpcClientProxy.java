@@ -7,6 +7,7 @@ import cuit.epoch.pymjl.exception.RpcException;
 import cuit.epoch.pymjl.remote.entity.RpcRequest;
 import cuit.epoch.pymjl.remote.entity.RpcResponse;
 import cuit.epoch.pymjl.remote.transport.RpcRequestTransport;
+import cuit.epoch.pymjl.remote.transport.netty.client.NettyClient;
 import cuit.epoch.pymjl.remote.transport.socket.SocketClient;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,6 +15,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author Pymjl
@@ -85,8 +87,11 @@ public class RpcClientProxy implements InvocationHandler {
             //发送请求
             response = (RpcResponse<Object>) rpcRequestTransport.sendRpcRequest(rpcRequest);
         }
-        //TODO 添加Netty客户端相关的逻辑
-
+        //Netty客户端相关的逻辑
+        if (rpcRequestTransport instanceof NettyClient) {
+            CompletableFuture<RpcResponse<Object>> completableFuture = (CompletableFuture<RpcResponse<Object>>) rpcRequestTransport.sendRpcRequest(rpcRequest);
+            response = completableFuture.get();
+        }
         //对返回结果进行校验
         check(response, rpcRequest);
         return response.getData();
