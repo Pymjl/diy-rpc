@@ -44,7 +44,8 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 log.info("server receive msg: [{}] ", msg);
                 byte messageType = ((RpcMessage) msg).getMessageType();
                 RpcMessage rpcMessage = new RpcMessage();
-                rpcMessage.setCodec(SerializationTypeEnum.HESSIAN.getCode());
+                //TODO 将序列化方式修改为配制文件的方式，避免硬编码
+                rpcMessage.setCodec(SerializationTypeEnum.KRYO.getCode());
                 rpcMessage.setCompress(CompressTypeEnum.GZIP.getCode());
 
                 if (messageType == RpcConstants.HEARTBEAT_REQUEST_TYPE) {
@@ -66,6 +67,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                     }
                 }
                 ctx.writeAndFlush(rpcMessage).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                log.info("服务端返回响应给客户端");
             }
         } finally {
             //确保释放ByteBuf，否则可能会出现内存泄漏

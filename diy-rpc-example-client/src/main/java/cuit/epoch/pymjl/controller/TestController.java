@@ -15,6 +15,7 @@ public class TestController {
     private TestService testService;
 
     public void test() {
-        System.out.println(testService.test("Client"));
+        String test = testService.test("Client");
+        System.out.println(test);
     }
 }

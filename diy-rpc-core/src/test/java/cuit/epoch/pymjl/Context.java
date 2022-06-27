@@ -3,6 +3,7 @@ package cuit.epoch.pymjl;
 import cuit.epoch.pymjl.registry.zookeeper.ZkServiceRegistryImpl;
 import cuit.epoch.pymjl.remote.transport.netty.client.NettyClient;
 import cuit.epoch.pymjl.utils.CuratorUtils;
+import cuit.epoch.pymjl.utils.RuntimeUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import lombok.extern.log4j.Log4j2;
@@ -77,5 +78,6 @@ public class Context {
     void test11() {
         NettyClient client = new NettyClient();
         System.out.println(client.getClass().getCanonicalName());
+        System.out.println(RuntimeUtil.cpus()*2);
     }
 }
