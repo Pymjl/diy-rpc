@@ -41,19 +41,24 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
      * 有参构造，采用Netty自带的LengthFieldBasedFrameDecoder，用于解决TCP粘包、拆包的问题
      * 因为需要手动校验魔数，版本等，所以并未对数据进行截取
      *
-     * @param maxFrameLength    发送的数据包最大长度
-     * @param lengthFieldOffset 长度字段偏移量，指的是长度域位于整个数据包字节数组中的下标
-     * @param lengthFieldLength 长度域的自己的字节数长度
+     * @param maxFrameLength      发送的数据包最大长度
+     * @param lengthFieldOffset   长度字段偏移量，指的是长度域位于整个数据包字节数组中的下标
+     * @param lengthFieldLength   长度域的自己的字节数长度
+     * @param lengthAdjustment    添加到长度字段值的补偿值
+     * @param initialBytesToStrip 跳过的字节数。
      */
-    public MessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength) {
-        super(maxFrameLength, lengthFieldOffset, lengthFieldLength);
+    public MessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
+                          int lengthAdjustment, int initialBytesToStrip) {
+        super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip);
     }
 
     public MessageDecoder() {
         //maxFrameLength：数据包最大大小 8M
         // lengthFieldOffset：将magic code和version作为head，它们共5字节，所以长度域偏移量为5
         // lengthFieldLength: 长度域的长度是一个整型来存放，占4个字节，所以为4
-        this(RpcConstants.MAX_FRAME_LENGTH, 5, 4);
+        // lengthAdjustment：因为最开始已经读了9字节，而我们需要全部字节的数据，所以需要补偿调节回来，所以就是-9
+        // initialBytesToStrip：因为我们还需要手动的检验魔数，版本等，所以不跳过任何字节，为0
+        this(RpcConstants.MAX_FRAME_LENGTH, 5, 4, -9, 0);
     }
 
     @Override

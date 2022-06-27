@@ -4,7 +4,7 @@ import cuit.epoch.pymjl.config.CustomShutdownHook;
 import cuit.epoch.pymjl.config.RpcServiceConfig;
 import cuit.epoch.pymjl.factory.SingletonFactory;
 import cuit.epoch.pymjl.registry.provider.ServiceProvider;
-import cuit.epoch.pymjl.registry.provider.impl.ZkServiceProviderImpl;
+import cuit.epoch.pymjl.registry.provider.impl.ZkServiceProviderImpl;;
 import cuit.epoch.pymjl.remote.transport.netty.codec.MessageDecoder;
 import cuit.epoch.pymjl.remote.transport.netty.codec.MessageEncoder;
 import cuit.epoch.pymjl.utils.RuntimeUtil;
@@ -90,12 +90,13 @@ public class NettyServer {
                             p.addLast(new IdleStateHandler(10, 0, 0, TimeUnit.SECONDS));
                             p.addLast(new MessageEncoder());
                             p.addLast(new MessageDecoder());
-                            p.addLast(serviceHandlerGroup, new NettyServerHandler());
+                            p.addLast(new NettyServerHandler());
                         }
                     });
 
             // 绑定端口，同步等待绑定成功
-            ChannelFuture f = b.bind(host, PORT).sync();
+            ChannelFuture f = b.bind(PORT).sync();
+            log.info("Netty server start success, port: {}", PORT);
             // 等待服务端监听端口关闭
             f.channel().closeFuture().sync();
         } catch (InterruptedException e) {
