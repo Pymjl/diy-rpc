@@ -26,7 +26,6 @@ public class CustomShutdownHook {
         log.info("清理服务端节点下的所有子节点");
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
-                //FIXME 这里的端口号暂时写死为8080
                 InetSocketAddress inetSocketAddress =
                         new InetSocketAddress(InetAddress.getLocalHost().getHostAddress(), NettyServer.PORT);
                 CuratorUtils.clearRegistry(CuratorUtils.getZkClient(), inetSocketAddress);

@@ -5,6 +5,7 @@ import cuit.epoch.pymjl.config.RpcServiceConfig;
 import cuit.epoch.pymjl.factory.SingletonFactory;
 import cuit.epoch.pymjl.registry.provider.ServiceProvider;
 import cuit.epoch.pymjl.registry.provider.impl.ZkServiceProviderImpl;
+import cuit.epoch.pymjl.remote.transport.netty.server.NettyServer;
 import cuit.epoch.pymjl.utils.concurrent.threadpool.ThreadPoolFactoryUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,8 +51,7 @@ public class SocketServer {
     public void start() {
         try (ServerSocket server = new ServerSocket()) {
             String host = InetAddress.getLocalHost().getHostAddress();
-            //TODO 端口暂时写死为8080
-            server.bind(new InetSocketAddress(host, 8080));
+            server.bind(new InetSocketAddress(host, NettyServer.PORT));
             CustomShutdownHook.getCustomShutdownHook().clearAll();
             Socket socket;
             log.info("服务端启动成功");

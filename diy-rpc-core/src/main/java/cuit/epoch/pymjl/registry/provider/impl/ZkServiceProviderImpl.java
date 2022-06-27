@@ -5,6 +5,7 @@ import cuit.epoch.pymjl.enums.RpcErrorMessageEnum;
 import cuit.epoch.pymjl.exception.RpcException;
 import cuit.epoch.pymjl.registry.ServiceRegistry;
 import cuit.epoch.pymjl.registry.provider.ServiceProvider;
+import cuit.epoch.pymjl.remote.transport.netty.server.NettyServer;
 import cuit.epoch.pymjl.spi.ExtensionLoader;
 import lombok.extern.slf4j.Slf4j;
 
@@ -76,7 +77,7 @@ public class ZkServiceProviderImpl implements ServiceProvider {
             String host = InetAddress.getLocalHost().getHostAddress();
             this.addService(rpcServiceConfig);
             //TODO 此时端口为写死的8080，后续改为动态的服务端口
-            serviceRegistry.registryService(rpcServiceConfig.getRpcServiceName(), new InetSocketAddress(host, 8080));
+            serviceRegistry.registryService(rpcServiceConfig.getRpcServiceName(), new InetSocketAddress(host, NettyServer.PORT));
         } catch (UnknownHostException e) {
             e.printStackTrace();
             log.error(e.getMessage());

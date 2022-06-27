@@ -20,6 +20,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CustomScannerRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware {
     private static final String SPRING_BEAN_BASE_PACKAGE = "cuit.epoch.pymjl";
+    /**
+     * 这个需要和RpcScan的属性值相同
+     */
     private static final String BASE_PACKAGE_ATTRIBUTE_NAME = "basePackage";
     private ResourceLoader resourceLoader;
 
@@ -31,19 +34,19 @@ public class CustomScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        //get the attributes and values ​​of RpcScan annotation
+        // 获取RpcScan注解的各个属性
         AnnotationAttributes rpcScanAnnotationAttributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(RpcScan.class.getName()));
         String[] rpcScanBasePackages = new String[0];
         if (rpcScanAnnotationAttributes != null) {
-            // get the value of the basePackage property
+            // 获取 basePackage 属性的值
             rpcScanBasePackages = rpcScanAnnotationAttributes.getStringArray(BASE_PACKAGE_ATTRIBUTE_NAME);
         }
         if (rpcScanBasePackages.length == 0) {
             rpcScanBasePackages = new String[]{((StandardAnnotationMetadata) annotationMetadata).getIntrospectedClass().getPackage().getName()};
         }
-        // Scan the RpcService annotation
+        // 扫描RpcService注解
         CustomScanner rpcServiceScanner = new CustomScanner(beanDefinitionRegistry, RpcService.class);
-        // Scan the Component annotation
+        // 扫描Component注解
         CustomScanner springBeanScanner = new CustomScanner(beanDefinitionRegistry, Component.class);
         if (resourceLoader != null) {
             rpcServiceScanner.setResourceLoader(resourceLoader);

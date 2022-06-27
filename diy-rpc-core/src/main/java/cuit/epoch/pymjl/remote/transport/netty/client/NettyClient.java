@@ -69,8 +69,7 @@ public class NettyClient implements RpcRequestTransport {
                         p.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
                         p.addLast(new MessageEncoder());
                         p.addLast(new MessageDecoder());
-                        //TODO 添加客户端的处理器
-                        p.addLast(null);
+                        p.addLast(new NettyClientHandler());
                     }
                 });
         this.serviceDiscovery = ExtensionLoader.getExtensionLoader(ServiceDiscovery.class).getExtension("zookeeper");
