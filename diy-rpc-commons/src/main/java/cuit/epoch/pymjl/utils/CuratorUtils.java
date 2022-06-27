@@ -166,8 +166,8 @@ public final class CuratorUtils {
                 .build();
         zkClient.start();
         try {
-            // wait 30s until connect to the zookeeper
-            if (!zkClient.blockUntilConnected(30, TimeUnit.SECONDS)) {
+            // wait 40s until connect to the zookeeper
+            if (!zkClient.blockUntilConnected(40, TimeUnit.SECONDS)) {
                 throw new RuntimeException("Time out waiting to connect to ZK!");
             }
         } catch (InterruptedException e) {

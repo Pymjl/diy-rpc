@@ -13,6 +13,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 
@@ -22,14 +23,14 @@ import java.lang.reflect.Field;
  * @date 2022/5/8 0:16
  **/
 @Slf4j
+@Component
 public class SpringBeanPostProcessor implements BeanPostProcessor {
     private final ServiceProvider serviceProvider;
     private final RpcRequestTransport rpcClient;
 
     public SpringBeanPostProcessor() {
         this.serviceProvider = SingletonFactory.getInstance(ZkServiceProviderImpl.class);
-        //TODO 传输方式可以修改为配置文件的方式动态配置
-        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcRequestTransport.class).getExtension("socket");
+        this.rpcClient = ExtensionLoader.getExtensionLoader(RpcRequestTransport.class).getExtension("netty");
     }
 
     @SneakyThrows

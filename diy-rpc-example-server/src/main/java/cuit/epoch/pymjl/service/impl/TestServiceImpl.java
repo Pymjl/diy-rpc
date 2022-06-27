@@ -13,6 +13,5 @@ public class TestServiceImpl implements TestService {
     @Override
     public String test(String msg) {
         return "服务端返回客户端调用的方法参数{" + msg + "}";
-
     }
 }

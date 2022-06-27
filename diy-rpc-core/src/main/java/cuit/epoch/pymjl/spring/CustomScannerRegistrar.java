@@ -31,17 +31,17 @@ public class CustomScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata annotationMetadata, BeanDefinitionRegistry beanDefinitionRegistry) {
-        //获取RpcScan注解的属性和值
+        //get the attributes and values ​​of RpcScan annotation
         AnnotationAttributes rpcScanAnnotationAttributes = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(RpcScan.class.getName()));
         String[] rpcScanBasePackages = new String[0];
         if (rpcScanAnnotationAttributes != null) {
-            // 获取 basePackage 属性的值
+            // get the value of the basePackage property
             rpcScanBasePackages = rpcScanAnnotationAttributes.getStringArray(BASE_PACKAGE_ATTRIBUTE_NAME);
         }
         if (rpcScanBasePackages.length == 0) {
             rpcScanBasePackages = new String[]{((StandardAnnotationMetadata) annotationMetadata).getIntrospectedClass().getPackage().getName()};
         }
-        // 扫描RpcService注解
+        // Scan the RpcService annotation
         CustomScanner rpcServiceScanner = new CustomScanner(beanDefinitionRegistry, RpcService.class);
         // Scan the Component annotation
         CustomScanner springBeanScanner = new CustomScanner(beanDefinitionRegistry, Component.class);
@@ -53,5 +53,6 @@ public class CustomScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
         log.info("springBeanScanner扫描的数量 [{}]", springBeanAmount);
         int rpcServiceCount = rpcServiceScanner.scan(rpcScanBasePackages);
         log.info("rpcServiceScanner扫描的数量 [{}]", rpcServiceCount);
+
     }
 }

@@ -1,5 +1,7 @@
 package cuit.epoch.pymjl.annotations;
 
+import cuit.epoch.pymjl.spring.CustomScannerRegistrar;
+import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
@@ -9,7 +11,7 @@ import java.lang.annotation.*;
  **/
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
+@Import(CustomScannerRegistrar.class)
 @Documented
 public @interface RpcScan {
     /**
@@ -17,5 +19,5 @@ public @interface RpcScan {
      *
      * @return {@code String[]}
      */
-    String[] basePackages();
+    String[] basePackage();
 }
