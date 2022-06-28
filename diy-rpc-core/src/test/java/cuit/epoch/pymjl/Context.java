@@ -2,6 +2,7 @@ package cuit.epoch.pymjl;
 
 import cuit.epoch.pymjl.registry.zookeeper.ZkServiceRegistryImpl;
 import cuit.epoch.pymjl.remote.transport.netty.client.NettyClient;
+import cuit.epoch.pymjl.serialize.hessian.HessianSerializer;
 import cuit.epoch.pymjl.utils.CuratorUtils;
 import cuit.epoch.pymjl.utils.RuntimeUtil;
 import io.netty.buffer.ByteBuf;
@@ -78,6 +79,11 @@ public class Context {
     void test11() {
         NettyClient client = new NettyClient();
         System.out.println(client.getClass().getCanonicalName());
-        System.out.println(RuntimeUtil.cpus()*2);
+        System.out.println(RuntimeUtil.cpus() * 2);
+    }
+
+    @Test
+    void getHessianName() {
+        System.out.println(HessianSerializer.class.getCanonicalName());
     }
 }

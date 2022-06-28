@@ -1,1 +1,2 @@
 kryo=cuit.epoch.pymjl.serialize.kyro.KryoSerializer
+hessian=cuit.epoch.pymjl.serialize.hessian.HessianSerializer

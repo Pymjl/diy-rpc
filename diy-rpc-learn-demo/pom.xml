@@ -53,6 +53,11 @@
             <artifactId>zookeeper</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.62</version>
+        </dependency>
+        <dependency>
             <groupId>cuit.epoch</groupId>
             <artifactId>diy-rpc-commons</artifactId>
             <version>1.0-SNAPSHOT</version>

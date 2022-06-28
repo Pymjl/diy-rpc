@@ -111,7 +111,7 @@ public class NettyClient implements RpcRequestTransport {
             // 构造对应的请求数据
             RpcMessage rpcMessage = RpcMessage.builder().data(rpcRequest)
                     //TODO 将序列化方式修改为配制文件的方式，避免硬编码
-                    .codec(SerializationTypeEnum.KRYO.getCode())
+                    .codec(SerializationTypeEnum.HESSIAN.getCode())
                     .compress(CompressTypeEnum.GZIP.getCode())
                     .messageType(RpcConstants.REQUEST_TYPE).build();
             //发送请求

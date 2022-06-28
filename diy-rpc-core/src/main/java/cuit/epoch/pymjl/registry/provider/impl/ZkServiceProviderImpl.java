@@ -76,8 +76,8 @@ public class ZkServiceProviderImpl implements ServiceProvider {
         try {
             String host = InetAddress.getLocalHost().getHostAddress();
             this.addService(rpcServiceConfig);
-            //TODO 此时端口为写死的8080，后续改为动态的服务端口
-            serviceRegistry.registryService(rpcServiceConfig.getRpcServiceName(), new InetSocketAddress(host, NettyServer.PORT));
+            serviceRegistry.registryService(rpcServiceConfig.getRpcServiceName(),
+                    new InetSocketAddress(host, NettyServer.PORT));
         } catch (UnknownHostException e) {
             e.printStackTrace();
             log.error(e.getMessage());

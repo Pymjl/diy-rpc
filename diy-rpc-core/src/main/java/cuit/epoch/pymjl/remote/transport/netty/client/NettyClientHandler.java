@@ -78,7 +78,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
                 log.info("channel：{}", channel.remoteAddress().toString());
                 RpcMessage rpcMessage = new RpcMessage();
                 //TODO 将序列化方式修改为配制文件的方式，避免硬编码
-                rpcMessage.setCodec(SerializationTypeEnum.KRYO.getCode());
+                rpcMessage.setCodec(SerializationTypeEnum.HESSIAN.getCode());
                 rpcMessage.setCompress(CompressTypeEnum.GZIP.getCode());
                 rpcMessage.setMessageType(RpcConstants.HEARTBEAT_REQUEST_TYPE);
                 rpcMessage.setData(RpcConstants.PING);

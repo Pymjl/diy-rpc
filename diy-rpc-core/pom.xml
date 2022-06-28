@@ -52,6 +52,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
         </dependency>
+        <!--hessian2-->
+        <dependency>
+            <groupId>com.caucho</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.62</version>
+        </dependency>
         <dependency>
             <groupId>cuit.epoch</groupId>
             <artifactId>diy-rpc-commons</artifactId>

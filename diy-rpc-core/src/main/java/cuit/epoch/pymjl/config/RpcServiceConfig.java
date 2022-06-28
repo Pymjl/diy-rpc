@@ -32,7 +32,9 @@ public class RpcServiceConfig {
     }
 
     /**
-     * FIXME 这里我不是很理解，如果服务实现了多个接口的化就无法获取了？
+     * 得到服务的全限定名称
+     *
+     * @return {@code String}
      */
     public String getServiceName() {
         return this.service.getClass().getInterfaces()[0].getCanonicalName();

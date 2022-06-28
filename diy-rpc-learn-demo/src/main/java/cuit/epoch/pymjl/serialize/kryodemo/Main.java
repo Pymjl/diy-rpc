@@ -1,9 +1,9 @@
-package cuit.epoch.pymjl.kryodemo;
+package cuit.epoch.pymjl.serialize.kryodemo;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import cuit.epoch.pymjl.kryodemo.entity.Student;
+import cuit.epoch.pymjl.serialize.entity.Student;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

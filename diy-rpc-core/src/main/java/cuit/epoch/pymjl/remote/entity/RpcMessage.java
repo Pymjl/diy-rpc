@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * @author Pymjl
  * @version 1.0
@@ -14,7 +16,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class RpcMessage {
+public class RpcMessage implements Serializable {
+    private static long serialVersionUID = 1623465139976L;
     /**
      * rpc message type
      */
