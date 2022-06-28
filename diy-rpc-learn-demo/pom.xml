@@ -52,6 +52,7 @@
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
         </dependency>
+        <!--hessian-->
         <dependency>
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>

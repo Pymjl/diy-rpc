@@ -21,12 +21,12 @@ public class Main {
         //关闭注册功能
         kryo.setRegistrationRequired(false);
         //注册类
-        Output output = new Output(new FileOutputStream("C:\\Users\\Admin\\JavaProjects\\diy-rpc-test\\test1.txt"));
+        Output output = new Output(new FileOutputStream("C:\\Users\\Admin\\JavaProjects\\diy-rpc-main\\diy-rpc-learn-demo\\test1.txt"));
         Student student = new Student("Pymjl", "男", 20);
         kryo.writeObject(output, student);
         output.close();
         //反序列化
-        Input input = new Input(new FileInputStream("C:\\Users\\Admin\\JavaProjects\\diy-rpc-test\\test1.txt"));
+        Input input = new Input(new FileInputStream("C:\\Users\\Admin\\JavaProjects\\diy-rpc-main\\diy-rpc-learn-demo\\test1.txt"));
         Student readStudent = kryo.readObject(input, Student.class);
         input.close();
         System.out.println(readStudent);

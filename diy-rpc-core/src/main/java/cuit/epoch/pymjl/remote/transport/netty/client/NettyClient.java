@@ -66,7 +66,7 @@ public class NettyClient implements RpcRequestTransport {
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline p = ch.pipeline();
                         // 如果 5 秒内没有数据发送到服务器，则触发心跳事件，发送心跳请求
-                        p.addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
+                        p.addLast(new IdleStateHandler(0, 50, 0, TimeUnit.SECONDS));
                         p.addLast(new MessageEncoder());
                         p.addLast(new MessageDecoder());
                         p.addLast(new NettyClientHandler());
@@ -111,7 +111,7 @@ public class NettyClient implements RpcRequestTransport {
             // 构造对应的请求数据
             RpcMessage rpcMessage = RpcMessage.builder().data(rpcRequest)
                     //TODO 将序列化方式修改为配制文件的方式，避免硬编码
-                    .codec(SerializationTypeEnum.HESSIAN.getCode())
+                    .codec(SerializationTypeEnum.PROTOSTUFF.getCode())
                     .compress(CompressTypeEnum.GZIP.getCode())
                     .messageType(RpcConstants.REQUEST_TYPE).build();
             //发送请求

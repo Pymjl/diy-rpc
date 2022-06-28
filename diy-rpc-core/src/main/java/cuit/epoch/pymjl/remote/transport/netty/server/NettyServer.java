@@ -84,10 +84,10 @@ public class NettyServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
-                            // 30 秒之内没有收到客户端请求的话就关闭连接
+                            // 20 秒之内没有收到客户端请求的话就关闭连接
                             ChannelPipeline p = ch.pipeline();
                             //Netty自带的心跳处理器，应用层自定义，监听读超时
-                            p.addLast(new IdleStateHandler(10, 0, 0, TimeUnit.SECONDS));
+                            p.addLast(new IdleStateHandler(20, 0, 0, TimeUnit.SECONDS));
                             p.addLast(new MessageEncoder());
                             p.addLast(new MessageDecoder());
                             p.addLast(new NettyServerHandler());

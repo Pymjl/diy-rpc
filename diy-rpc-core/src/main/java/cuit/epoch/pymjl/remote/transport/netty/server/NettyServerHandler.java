@@ -45,7 +45,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 byte messageType = ((RpcMessage) msg).getMessageType();
                 RpcMessage rpcMessage = new RpcMessage();
                 //TODO 将序列化方式修改为配制文件的方式，避免硬编码
-                rpcMessage.setCodec(SerializationTypeEnum.HESSIAN.getCode());
+                rpcMessage.setCodec(SerializationTypeEnum.PROTOSTUFF.getCode());
                 rpcMessage.setCompress(CompressTypeEnum.GZIP.getCode());
 
                 if (messageType == RpcConstants.HEARTBEAT_REQUEST_TYPE) {
